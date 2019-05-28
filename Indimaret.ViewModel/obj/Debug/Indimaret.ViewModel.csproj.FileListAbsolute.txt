@@ -1,0 +1,5 @@
+C:\Users\User-XA\Documents\Visual Studio 2013\Projects\hari17\Indimaret\Indimaret.ViewModel\bin\Debug\Indimaret.ViewModel.dll
+C:\Users\User-XA\Documents\Visual Studio 2013\Projects\hari17\Indimaret\Indimaret.ViewModel\bin\Debug\Indimaret.ViewModel.pdb
+C:\Users\User-XA\Documents\Visual Studio 2013\Projects\hari17\Indimaret\Indimaret.ViewModel\obj\Debug\Indimaret.ViewModel.csprojResolveAssemblyReference.cache
+C:\Users\User-XA\Documents\Visual Studio 2013\Projects\hari17\Indimaret\Indimaret.ViewModel\obj\Debug\Indimaret.ViewModel.dll
+C:\Users\User-XA\Documents\Visual Studio 2013\Projects\hari17\Indimaret\Indimaret.ViewModel\obj\Debug\Indimaret.ViewModel.pdb

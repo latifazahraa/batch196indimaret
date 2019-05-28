@@ -1,0 +1,91 @@
+﻿@model Indimaret.Model.BarangModel
+
+<div>
+
+        <div class="table-responsive">
+            <table class="table" id="tablehargascd">
+                <thead>
+                    <tr>
+                        <th class="tbl-nama">
+                            ID Barang
+                        </th>
+                        <th class="tbl-nama">
+                            Nama Barang
+                        </th>
+                        <th class="tbl-harga">
+                            Harga
+                        </th>
+                        <th class="tbl-aksi">
+                            Aksi
+                        </th>
+                    </tr>
+                </thead>
+                <tbody id="tbl-bodyscd"></tbody>
+            </table>
+        </div> 
+    </div>
+
+<script>
+    $(document).ready(function () {
+        var vDataBarang = [
+            { 'ID': 1, 'TokoID': 1, 'KodeBarang': "KB001", 'NamaBarang': "Panadol", 'AsalPabrik': "Bogor", 'harga': 3000, 'JmlBarang': 30, 'LamaKadaluarsa': 10 }
+          , { 'ID': 2, 'TokoID': 1, 'KodeBarang': "KB002", 'NamaBarang': "Dekolgen", 'AsalPabrik': "Bandung", 'harga': 2500, 'JmlBarang': 5, 'LamaKadaluarsa': 40 }
+          , { 'ID': 3, 'TokoID': 1, 'KodeBarang': "KB003", 'NamaBarang': "Promag", 'AsalPabrik': "Jakarta", 'harga': 2000, 'JmlBarang': 12, 'LamaKadaluarsa': 15 }
+          , { 'ID': 4, 'TokoID': 2, 'KodeBarang': "KB004", 'NamaBarang': "Vit C", 'AsalPabrik': "Yogya", 'harga': 500, 'JmlBarang': 23, 'LamaKadaluarsa': 20 }
+        ]
+
+        var jahitdata = "";
+        $.each(vDataBarang, function (i, data) {
+            debugger;
+            jahitdata = jahitdata + '<tr>' +
+                        '<td>' + data.ID + '</td>' +
+                        '<td>' + data.NamaBarang + '</td>' +
+                        '<td>' + data.harga + '</td>' +
+                        '<td>' + '<button type="button" class="btn btn-primary tombolaksi" databarang=\'' + JSON.stringify(data) + '\'>+</button>' + '</td>' +
+            '</tr>';
+
+        });
+        debugger;
+        $('#tbl-bodyscd').append(jahitdata);
+
+        $('.tombolaksi').click(function () {
+            var vData = JSON.parse($(this).attr('databarang'));
+            var dataNota = "";
+            var jml = 1;
+            debugger;
+            $('.clIDBarang').each(function (i, d) {
+                debugger;
+                if (vData.ID == parseInt($(this).attr('dataID'))) 
+                {
+                    debugger;
+                
+                }
+                else 
+                {
+
+
+                }
+
+            });
+            debugger;
+            {
+                dataNota = dataNota + '<tr>' +
+                    '<td>' + '<input type="text" class="clIDBarang" dataID="' + vData.ID + '" value="' + vData.ID + '" />' + '</td>' +
+                    '<td>' + '<input type="text" class="clNmBarang" value="' + vData.NamaBarang + '" />' + '</td>' +
+                    '<td>' + '<input type="text" class="clJmlBarang" value="' + jml + '" />' + '</td>' +
+                    '<td>' + '<input type="text" class="clhargaBarang" value="' + vData.harga + '" />' + '</td>' +
+                    '<td>' + '<button type="button" class="btn btn-danger tomboldelete" delID=' + JSON.stringify(vData) + '>Delete</button>' + '</td>' +
+        '</tr>';
+            }
+
+            $('#tbljml-body').append(dataNota);
+
+            $('.tomboldelete').click(function () {
+                debugger;
+                $(this).parent().parent().remove();
+            });
+        });
+    });
+</script>
+
+

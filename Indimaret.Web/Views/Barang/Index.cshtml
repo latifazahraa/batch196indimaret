@@ -1,0 +1,145 @@
+﻿@model IEnumerable<Indimaret.Model.BarangModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <button type="button" id="idBtnCreateBarang">Tambah Data</button>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TokoID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.KodeBarang)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NamaBarang)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AsalPabrik)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.JmlBarang)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LamaKadaluarsa)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TokoID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.KodeBarang)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NamaBarang)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AsalPabrik)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.JmlBarang)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LamaKadaluarsa)
+        </td>
+        <td>
+            @*@Html.ActionLink("Edit", "Edit", new { id=item.ID })*@ 
+            <button type="button" class="btn btn-success clEditBarang" IDdata="@item.ID">Edit</button>|
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @*@Html.ActionLink("Delete", "Delete", new { id=item.ID })*@
+            <button type="button" class="btn btn-danger clDeleteBarang" dataID="@item.ID" >Delete</button>
+        </td>
+    </tr>
+}
+
+</table>
+
+<div class="modal fade" id="idMdlCreateBarang" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Tambah Data</h4>
+            </div>
+            <div class="modal-body" id="idBodyCreateBarang">
+                
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="idMdlEditBarang" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Edit Data</h4>
+            </div>
+            <div class="modal-body" id="idBodyEditBarang">
+
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<script>
+    $('.clEditBarang').click(function () {
+        var vDataID = parseInt($(this).attr('IDdata'));
+        debugger;
+        $.ajax({
+            type: 'Post',
+            url: '/Barang/Edit',
+            data: { ID: vDataID },
+            success: function (mdl) {
+                debugger;
+                $('#idBodyCreateBarang').empty();
+                $('#idBodyCreateBarang').append(mdl);
+                $('#idMdlCreateBarang').modal('show');
+            },
+            error: function (mdl) {
+                debugger;
+            }
+        });
+    });
+
+    $('.clDeleteBarang').click(function () {
+        var vDataID = parseInt($(this).attr('DataID'));
+        debugger;
+        $.ajax({
+            type: 'Post',
+            url: '/Barang/Delete',
+            data: {ID:vDataID},
+            success: function (mdl) {
+                debugger;
+                },
+            error: function (mdl) {
+                debugger;
+            }
+        });
+    });
+
+    $('#idBtnCreateBarang').click(function() {
+        debugger;
+         $.ajax({
+             url: '/Barang/Create',
+             method: 'Get',
+             success: function(mdl) {
+                 debugger;
+                $('#idBodyCreateBarang').empty();
+                $('#idBodyCreateBarang').append(mdl);
+                $('#idMdlCreateBarang').modal('show');
+            },
+        error: function (mdl){
+            debugger;
+            }
+        });
+    });
+</script>

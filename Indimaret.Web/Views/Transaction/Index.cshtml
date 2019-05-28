@@ -1,0 +1,156 @@
+﻿<div class="row">
+    <div class="col-md-6">
+        <form class="form-inline">
+            <div class="form-group">
+                <label for="inputEmail3" class="col-sm-2 control-label"><strong>Tanggal  </strong></label>
+                <div class="col-sm-10">
+                    <input type="date" class="form-control" placeholder="">
+                </div>
+            </div>
+        </form>
+        <br />
+        <form class="form-inline">
+            <div class="form-group">
+                <label for="inputPassword3" class="col-sm-2 control-label"><strong>No.Faktur</strong></label>
+                <div class="col-sm-10">
+                    <input type="password" class="form-control" placeholder="">
+                </div>
+            </div>
+        </form>
+        <br />
+        <div class="table-responsive">
+            <table class="table" id="tableharga">
+                <thead>
+                    <tr>
+                        <th class="tbl-nama">
+                            ID Barang
+                        </th>
+                        <th class="tbl-nama">
+                            Nama Barang
+                        </th>
+                        <th class="tbl-harga">
+                            Harga
+                        </th>
+                        <th class="tbl-aksi">
+                            Aksi
+                        </th>
+                    </tr>
+                </thead>
+                <tbody id="tbl-body"></tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <div class="col-md-6">
+        <div class="table-responsive">
+            <table class="table" id="tablejumlah">
+                <thead>
+                    <tr>
+                        <th class="tbl-nama">
+                            ID Barang
+                        </th>
+                        <th class="tbl-nama">
+                            Nama Barang
+                        </th>
+                        <th class="tbl-harga">
+                            Jumlah
+                        </th>
+                        <th class="tbl-aksi">
+                            Subtotal
+                        </th>
+                        <th class="tbl-aksi">
+                            Aksi
+                        </th>
+                    </tr>
+                </thead>
+                <tbody id="tbljml-body"></tbody>
+            </table>
+            <br /><br /><br />
+            <div class="col-xs-6 col-md-4">
+                <form class="form-inline">
+                    <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-2 control-label"><strong>Total</strong></label>
+                        <div class="col-sm-10">
+                            <input type="number" class="form-control" disabled>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-2 control-label"><strong>Bayar</strong></label>
+                        <div class="col-sm-10">
+                            <input type="number" class="form-control" placeholder="">
+                        </div>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-2 control-label"><strong>Kembali</strong></label>
+                        <div class="col-sm-10">
+                            <input type="number" class="form-control" placeholder="">
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        var vDataBarang = [
+            { 'ID': 1, 'TokoID': 1, 'KodeBarang': "KB001", 'NamaBarang': "Panadol", 'AsalPabrik': "Bogor", 'harga': 3000, 'JmlBarang': 30, 'LamaKadaluarsa': 10 }
+          , { 'ID': 2, 'TokoID': 1, 'KodeBarang': "KB002", 'NamaBarang': "Dekolgen", 'AsalPabrik': "Bandung", 'harga': 2500, 'JmlBarang': 5, 'LamaKadaluarsa': 40 }
+          , { 'ID': 3, 'TokoID': 1, 'KodeBarang': "KB003", 'NamaBarang': "Promag", 'AsalPabrik': "Jakarta", 'harga': 2000, 'JmlBarang': 12, 'LamaKadaluarsa': 15 }
+          , { 'ID': 4, 'TokoID': 2, 'KodeBarang': "KB004", 'NamaBarang': "Vit C", 'AsalPabrik': "Yogya", 'harga': 500, 'JmlBarang': 23, 'LamaKadaluarsa': 20 }
+        ]
+
+
+
+        var jahitdata = "";
+        $.each(vDataBarang, function (i, data) {
+            debugger;
+            jahitdata = jahitdata + '<tr>' +
+                        '<td>' + data.ID + '</td>' +
+                        '<td>' + data.NamaBarang + '</td>' +
+                        '<td>' + data.harga + '</td>' +
+                        '<td>' + '<button type="button" class="btn btn-primary tombolaksi" dataID=\''+JSON.stringify(data)+'\'>+</button>' + '</td>' +
+            '</tr>';
+            
+        });
+        debugger;
+        $('#tbl-body').append(jahitdata);
+
+
+        $('.tombolaksi').click(function () {
+            var vData = JSON.parse($(this).attr('dataID'));
+            var dataNota = "";
+            var jml = 1;
+
+            debugger;
+                dataNota = dataNota + '<tr>' +
+                        '<td>' + vData.ID + '</td>' +
+                        '<td>' + vData.NamaBarang + '</td>' +
+                        '<td>' + jml + '</td>' +
+                        '<td>' + vData.harga + '</td>' +
+                        '<td>' + '<button type="button" class="btn btn-danger tomboldelete" delID=' + JSON.stringify(vData) + '>Delete</button>' + '</td>' +
+            '</tr>';
+
+                $('#tbljml-body').append(dataNota);
+
+                $('.tomboldelete').click(function () {
+                    debugger;
+                    $(this).parent().parent().remove();
+                });
+                
+                
+                
+
+        
+        });
+    });
+
+
+
+</script>
