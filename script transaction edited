@@ -1,0 +1,246 @@
+            <div class="form-group">
+                <label for="inputEmail3" class="col-sm-2 control-label"><strong>Tanggal  </strong></label>
+                <div class="col-sm-10">
+                    <input type="date" class="form-control" placeholder="">
+                </div>
+            </div>
+
+        <br />
+
+            <div class="form-group">
+                <label for="inputPassword3" class="col-sm-2 control-label"><strong>No.Faktur</strong></label>
+                <div class="col-sm-10">
+                    <input type="password" class="form-control" placeholder="">
+                </div>
+            </div>
+
+
+<br /><br />
+<p>
+    <button type="button"class="=btn btn-success" id="idBtnDaftarBarang"><h5>Tambah Data</h5></button>
+</p>
+
+        <br />
+        
+
+
+        <div class="table-responsive">
+            <table class="table" id="tablejumlah">
+                <thead>
+                    <tr>
+                        <th class="tbl-nama">
+                            ID Barang
+                        </th>
+                        <th class="tbl-nama">
+                            Nama Barang
+                        </th>
+                        <th class="tbl-harga">
+                            Jumlah
+                        </th>
+                        <th class="tbl-aksi">
+                            Subtotal
+                        </th>
+                        <th class="tbl-aksi">
+                            Aksi
+                        </th>
+                    </tr>
+                </thead>
+                <tbody id="tbljml-body"></tbody>
+            </table>
+            <br /><br /><br />
+            <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
+
+
+                        <div class="form-group">
+                            @*<label for="inputEmail3" class="col-sm-2 control-label"><strong>Total</strong></label>*@
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="idSubtotal" value="Total" disabled>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            @*<label for="inputPassword3" class="col-sm-2 control-label"><strong>Bayar</strong></label>*@
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="idBayar" placeholder="Bayar">
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            @*<label for="inputPassword3" class="col-sm-2 control-label"><strong>Kembali</strong></label>*@
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="idKembali" value="Kembali" disabled>
+                            </div>
+                        </div>
+
+                    <div class="row">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-1"></div>
+                        <div class="col-md-1"></div>
+                        <div class="col-md-1"></div>
+                        <div class="col-md-1"></div>
+                        <div class="col-md-1"></div>
+                        <div class="col-md-1"></div>
+                        <div class="col-md-1"><p>
+                            <button type="submit" class="=btn btn-success" id="idBtnSubmit"><h5>Submit</h5></button>
+                            </p></div>
+
+                      </div>
+                    </div>
+                <div class="col-md-4"></div>
+            </div>
+        </div>
+
+<div class="modal fade" id="idMdlDaftarBarang" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Tambah Data</h4>
+            </div>
+            <div class="modal-body" id="idBodyDaftarBarang">
+
+
+                    <div class="table-responsive">
+                        <table class="table" id="tablehargascd">
+                            <thead>
+                                <tr>
+                                    <th class="tbl-nama">
+                                        ID Barang
+                                    </th>
+                                    <th class="tbl-nama">
+                                        Nama Barang
+                                    </th>
+                                    <th class="tbl-harga">
+                                        Harga
+                                    </th>
+                                    <th class="tbl-aksi">
+                                        Aksi
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbl-bodyscd">
+
+                            </tbody>
+                        </table>
+                    </div>
+
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<script>
+ $(document).ready(function () {
+  $('#idBtnDaftarBarang').click(function() {
+        debugger;
+         $.ajax({
+             url: '/TransactionScd/DaftarBarang',
+             method: 'Get',
+             success: function(mdl) {
+                 debugger;
+                 $('#idBodyDaftarBarang').empty();
+                 $('#idBodyDaftarBarang').append(mdl);
+                 $('#idMdlDaftarBarang').modal('show');
+            },
+            error: function (mdl){
+            debugger;
+            }   
+         });
+
+
+  var vCtr = 0;
+  var vTkp = true;
+  var vJmlBarang = 1;
+  var array_total = [];
+
+  var vDataBarang = [
+      { 'ID': 1, 'TokoID': 1, 'KodeBarang': "KB001", 'NamaBarang': "Panadol", 'AsalPabrik': "Bogor", 'harga': 3000, 'JmlBarang': 30, 'LamaKadaluarsa': 10 }
+    , { 'ID': 2, 'TokoID': 1, 'KodeBarang': "KB002", 'NamaBarang': "Dekolgen", 'AsalPabrik': "Bandung", 'harga': 2500, 'JmlBarang': 5, 'LamaKadaluarsa': 40 }
+    , { 'ID': 3, 'TokoID': 1, 'KodeBarang': "KB003", 'NamaBarang': "Promag", 'AsalPabrik': "Jakarta", 'harga': 2000, 'JmlBarang': 12, 'LamaKadaluarsa': 15 }
+    , { 'ID': 4, 'TokoID': 2, 'KodeBarang': "KB004", 'NamaBarang': "Vit C", 'AsalPabrik': "Yogya", 'harga': 500, 'JmlBarang': 23, 'LamaKadaluarsa': 20 }
+  ]
+
+  var jahitdata = "";
+  $.each(vDataBarang, function (i, data) {
+      debugger;
+      jahitdata = jahitdata + '<tr>' +
+                  '<td>' + data.ID + '</td>' +
+                  '<td>' + data.NamaBarang + '</td>' +
+                  '<td>' + data.harga + '</td>' +
+                  '<td>' + '<button type="button" class="btn btn-primary tombolaksi" databarang=\'' + JSON.stringify(data) + '\'>+</button>' + '</td>' + '</tr>';
+  });
+  debugger;
+  $('#tbl-bodyscd').append(jahitdata);
+
+  $('.tombolaksi').click(function () {
+      var vData = JSON.parse($(this).attr('databarang'));
+      var dataNota = "";
+      var vHargaBarang = vData.harga;
+
+      $('.clNmBarang').each(function (i, d) {
+          debugger;
+
+          if (vData.ID == parseInt($(this).attr('dataID'))) {
+              vTkp = false;
+
+              vJmlBarang = $(this).parent().parent().find('td input:text.clJmlBarang').val();
+              vJmlBarang++;
+              $(this).parent().parent().find('td input:text.clJmlBarang').val(vJmlBarang);
+              vHargaBarang = vJmlBarang * vHargaBarang;
+              $(this).parent().parent().find('td input:text.clHargaBarang').val(vHargaBarang);
+          }
+      });
+      if (vTkp == false) {
+          debugger;
+          vCtr = 1;
+          vTkp = true;
+      } else {
+          debugger;
+          vCtr = 0;
+      }
+      if (vCtr == 0) {
+          debugger;
+          vJmlBarang = 1;
+          dataNota = dataNota + '<tr>' +
+              '<td>' + '<input type="text" class="clIDBarang"  value="' + vData.ID + '" />' + '</td>' +
+              '<td>' + '<input type="text" class="clNmBarang" dataID="' + vData.ID + '" value="' + vData.NamaBarang + '" />' + '</td>' +
+              '<td>' + '<input type="text" class="clJmlBarang" value="' + vJmlBarang + '" />' + '</td>' +
+              '<td>' + '<input type="text" class="clHargaBarang" value="' + vHargaBarang + '" />' + '</td>' +
+              '<td>' + '<button type="button" class="btn btn-danger tomboldelete" delID=' + JSON.stringify(vData) + '>Delete</button>' + '</td>' + '</tr>';
+      }
+      $('#tbljml-body').append(dataNota);
+      $('#idMdlDaftarBarang').modal('hide');
+
+      $('.clJmlBarang').each(function subtotal(i, d) {
+          debugger;
+          vHargaBarang = $(this).parent().parent().find('td input:text.clHargaBarang').val();
+          array_total[i] = vHargaBarang;
+          var vTotal = eval(array_total.join('+'));
+          $('#idSubtotal').val(vTotal);
+      });
+
+      $('.tomboldelete').click(function () {
+          debugger;
+          var vHapusData = $(this).parent().parent().find('td input:text.clHargaBarang').val();
+          $(this).parent().parent().remove();
+          var vTotal = $('#idSubtotal').val();
+          vTotal = vTotal - vHapusData;
+          $('#idSubtotal').val(vTotal);
+      });
+  });
+
+  $('#idBayar').keypress(function (e) {
+      debugger;
+      if (e.keyCode == 13) {
+          var vBayar2 = $('#idBayar').val();
+          var vTotal2 = $('#idSubtotal').val();
+          var vKembali2 = vBayar2 - vTotal2;
+          $('#idKembali').val(vKembali2);
+          debugger;
+      }
+    });
+  });
+ });
+</script>
